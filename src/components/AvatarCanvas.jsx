@@ -1,71 +1,79 @@
 import { Suspense, useRef, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Html, Float, Environment, useProgress } from "@react-three/drei";
+import { OrbitControls, useGLTF, Html, Float, Environment, useProgress, Lightformer } from "@react-three/drei";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import * as THREE from "three";
 
-// 注册 MeshoptDecoder
+// Register MeshoptDecoder
 function gltfSetup(loader) {
   loader.setMeshoptDecoder(MeshoptDecoder);
 }
 
-// 各章节的相机预设位置 + 目标焦点
-// PC 版:近距离特写;移动版:距离调远,给 UI 抽屉让出空间
+// Camera presets per section: model stays centered (shared target),
+// camera orbits around the center — model never shifts off-center
 const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+const MODEL_CENTER = [0, 1, 0];
 const SECTION_CAMERAS = {
   about: {
     position: isMobile ? [0, 1.5, 6] : [0, 1.5, 4],
-    target: [0, 1, 0],
+    target: MODEL_CENTER,
   },
   skills: {
-    position: isMobile ? [3.5, 1.5, 5] : [3, 1.5, 3],
-    target: [0, 1, 0],
+    position: isMobile ? [3.5, 1.5, 5] : [3, 1.5, 3.2],
+    target: MODEL_CENTER,
   },
   reel: {
-    // 视频章节:相机移到一侧,把画面让给视频
-    position: isMobile ? [4, 1.5, 5] : [5, 2, 4],
-    target: [0, 1, 0],
+    position: isMobile ? [4, 1.5, 5] : [4.5, 1.8, 3.5],
+    target: MODEL_CENTER,
   },
   projects: {
-    position: isMobile ? [-3.5, 1.8, 5] : [-3, 1.8, 3],
-    target: [0, 1.1, 0],
+    position: isMobile ? [-3.5, 1.8, 5] : [-3, 1.8, 3.2],
+    target: MODEL_CENTER,
   },
   contact: {
-    position: isMobile ? [0, 1.2, 4] : [0, 1.2, 2.5],
-    target: [0, 1, 0],
+    position: isMobile ? [0, 1.2, 4] : [0, 1.2, 2.8],
+    target: MODEL_CENTER,
   },
 };
 
-// 加载并渲染 avatar 模型,带缓慢自转
-function AvatarModel({ autoRotateRef }) {
+// Load and render the avatar model with mouse-follow behavior
+function AvatarModel() {
   const groupRef = useRef();
   const { scene } = useGLTF("/models/avatar.glb", true, false, gltfSetup);
+  const { pointer } = useThree();
+  const targetRotY = useRef(0);
+  const targetRotX = useRef(0);
 
-  useFrame((_, delta) => {
+  useFrame(() => {
     if (!groupRef.current) return;
-    if (autoRotateRef.current) {
-      groupRef.current.rotation.y += delta * 0.25;
-    }
+    // Mouse follow: pointer (-1~1) maps to rotation (±1.2 rad Y, ±0.5 rad X)
+    targetRotY.current = pointer.x * 1.2;
+    targetRotX.current = -pointer.y * 0.5;
+
+    // Smooth interpolation, returns to center on release
+    groupRef.current.rotation.y +=
+      (targetRotY.current - groupRef.current.rotation.y) * 0.08;
+    groupRef.current.rotation.x +=
+      (targetRotX.current - groupRef.current.rotation.x) * 0.08;
   });
 
   return (
     <group ref={groupRef}>
-      <Float speed={2} rotationIntensity={0.15} floatIntensity={0.3}>
+      <Float speed={1.5} rotationIntensity={0.08} floatIntensity={0.2}>
         <primitive object={scene} />
       </Float>
     </group>
   );
 }
 
-// 相机控制器:进场动画 + 章节切换平滑过渡
+// Camera rig: intro animation + smooth section transitions
 function CameraRig({ activeSection, controlsRef, autoRotateRef }) {
   const { camera } = useThree();
-  const phase = useRef("intro"); // "intro" → "ready"
+  const phase = useRef("intro");
   const startTime = useRef(null);
   const tmpTarget = useRef(new THREE.Vector3());
 
   useEffect(() => {
-    // 进场起始:远处高位
     camera.position.set(0, 3, 12);
   }, [camera]);
 
@@ -77,37 +85,37 @@ function CameraRig({ activeSection, controlsRef, autoRotateRef }) {
       if (startTime.current === null) startTime.current = performance.now();
       const elapsed = (performance.now() - startTime.current) / 1000;
       const t = Math.min(elapsed / 2.5, 1);
-      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 3);
 
       camera.position.x += (preset.position[0] - camera.position.x) * eased * 0.08;
       camera.position.y += (preset.position[1] - camera.position.y) * eased * 0.08;
       camera.position.z += (preset.position[2] - camera.position.z) * eased * 0.08;
 
-      if (controls) controls.target.lerp(tmpTarget.current.set(...preset.target), 0.1);
+      if (controls)
+        controls.target.lerp(tmpTarget.current.set(...preset.target), 0.1);
 
       if (t >= 1) {
         phase.current = "ready";
         autoRotateRef.current = true;
       }
     } else {
-      // ready 阶段:用户未交互时,相机平滑跟随章节预设
+      // ready: camera smoothly follows section preset when user is idle
       if (autoRotateRef.current) {
         camera.position.x += (preset.position[0] - camera.position.x) * 0.04;
         camera.position.y += (preset.position[1] - camera.position.y) * 0.04;
         camera.position.z += (preset.position[2] - camera.position.z) * 0.04;
-        if (controls) controls.target.lerp(tmpTarget.current.set(...preset.target), 0.04);
+        if (controls)
+          controls.target.lerp(tmpTarget.current.set(...preset.target), 0.04);
       }
     }
 
-    if (controls) {
-      controls.update();
-    }
+    if (controls) controls.update();
   });
 
   return null;
 }
 
-// 加载提示:真实百分比进度条
+// Loading fallback: real percentage progress bar
 function LoadingFallback() {
   const { progress } = useProgress();
   const pct = Math.round(progress);
@@ -137,8 +145,13 @@ export default function AvatarCanvas({ activeSection }) {
     <Canvas camera={{ position: [0, 1.5, 4], fov: 35 }} dpr={[1, 2]} shadows>
       <color attach="background" args={["#0a0a0a"]} />
 
-      {/* 环境贴图:给 PBR 材质提供真实反射,质感显著提升 */}
-      <Environment preset="studio" />
+      {/* Environment map: locally generated (no CDN dependency) for PBR reflections */}
+      <Environment resolution={256} frames={1}>
+        <color attach="background" args={["#0a0a0a"]} />
+        <Lightformer intensity={2} position={[0, 4, 0]} scale={[6, 6, 1]} />
+        <Lightformer intensity={1.5} position={[4, 2, 4]} scale={[3, 3, 1]} />
+        <Lightformer intensity={1} position={[-4, 2, -4]} scale={[3, 3, 1]} />
+      </Environment>
 
       <ambientLight intensity={1.2} />
       <directionalLight
@@ -151,7 +164,7 @@ export default function AvatarCanvas({ activeSection }) {
       <directionalLight position={[-5, 3, -5]} intensity={1} />
 
       <Suspense fallback={<LoadingFallback />}>
-        <AvatarModel autoRotateRef={autoRotateRef} />
+        <AvatarModel />
       </Suspense>
 
       <CameraRig
@@ -167,10 +180,9 @@ export default function AvatarCanvas({ activeSection }) {
         minDistance={1.5}
         maxDistance={8}
         onStart={() => {
-          autoRotateRef.current = false; // 交互时暂停自转和相机过渡
+          autoRotateRef.current = false;
         }}
         onEnd={() => {
-          // 松手后延迟恢复
           setTimeout(() => {
             autoRotateRef.current = true;
           }, 1500);

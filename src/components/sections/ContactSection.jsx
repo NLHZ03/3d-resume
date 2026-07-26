@@ -1,7 +1,7 @@
 import Highlight from "../Highlight";
 import { profile } from "../../content";
 
-// 屏幕居中卡片 —— 联系方式(大号邮箱 + 社交图标横排 + 引导语)
+// Centered card — contact (large email + social links row + invite line)
 export default function ContactSection() {
   const { contact } = profile;
   if (!contact) return null;

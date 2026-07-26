@@ -1,99 +1,99 @@
 // ============================================================
-//  内容中枢 —— 王梓臣 ERIC 的个人主页
-//  改这一个文件,网站立刻反映。组件代码不用动。
+//  Content hub — Eric Wang's personal site
+//  Edit this one file, the site updates instantly. No component changes needed.
 // ============================================================
 //
-//  ✦ About 段落里用 {关键词} 语法,会被渲染成彩色高亮
-//  ✦ level 用 1-5 的数字,会渲染成小圆点(熟练度可视化)
-//  ✦ 任何字段都可以删除/留空,组件会自动跳过
+//  ✦ In About paragraphs, wrap keywords in {braces} to highlight them
+//  ✦ level uses 1-5, rendered as dots (proficiency visualization)
+//  ✦ Any field can be deleted/left empty — components skip it gracefully
 
 export const profile = {
-  name: "Eric · 王梓臣",
-  role: "从肌肉思考到 AI-native 思考的商科生",
-  location: "山东东营 → Singapore",
+  name: "Eric · Wang Zichen",
+  role: "Business student migrating from muscle-brained to AI-native",
+  location: "Dongying → Singapore",
 
   // ─────────────────────────────────────────────
-  // 关于我 —— 用 {关键词} 做高亮
+  // About — use {braces} to highlight keywords
   // ─────────────────────────────────────────────
   about: {
     paragraphs: [
-      "我是 {Eric},一个想从{肌肉思考}走向 {AI-native 思考}的商科生。",
-      "我信奉 {活在当下} —— 把每一刻都过得饱满,无论是撸铁、写代码,还是思考未来。",
-      "这个网站是我的数字分身,你可以转动它、和它互动。它本身,就是我能给你的最好的名片。",
+      "I'm {Eric} — a business student in the middle of a brain transplant, going from {muscle-brained} to {AI-native} (and yes, I do consider that an upgrade).",
+      "I live by one rule: {be here now}. Whether it's a heavy set at the gym, a late-night Python rabbit hole, or just staring at the ceiling thinking about the future — I'm all in.",
+      "This site is my digital clone. Spin it, drag it, poke it. Honestly, it's the best business card I could give you — and the only one that won't get lost in a drawer.",
     ],
-    quote: "我不需要酒精和毒品,我喜欢未加修饰的痛苦。",
-    tags: ["创造价值", "成为自己", "AI", "活在当下", "健身"],
+    quote: "I don't need alcohol or drugs — I prefer my suffering raw and unfiltered.",
+    tags: ["Create Value", "Become Myself", "AI", "Be Here Now", "Fitness"],
   },
 
   // ─────────────────────────────────────────────
-  // 技能 —— 三大领域:个人成长 / 健身 / AI
+  // Skills — three domains: Personal Growth / Fitness / AI
   // ─────────────────────────────────────────────
   skills: {
     groups: [
       {
-        title: "🌱 个人成长",
+        title: "🌱 Personal Growth",
         items: [
-          { name: "情绪管理", level: 5 },
-          { name: "习惯养成", level: 4 },
-          { name: "反思复盘", level: 4 },
-          { name: "快乐阈值", level: 4 },
-          { name: "时间管理", level: 3 },
+          { name: "Emotional Regulation", level: 5 },
+          { name: "Habit Building", level: 4 },
+          { name: "Self-Reflection", level: 4 },
+          { name: "Happiness Threshold", level: 4 },
+          { name: "Time Management", level: 3 },
         ],
       },
       {
-        title: "💪 健身领域",
+        title: "💪 Fitness",
         items: [
-          { name: "出勤率", level: 5 },
-          { name: "饮食习惯", level: 5 },
-          { name: "力量", level: 4 },
-          { name: "耐力", level: 4 },
-          { name: "动作标准化", level: 4 },
+          { name: "Gym Attendance", level: 5 },
+          { name: "Diet Discipline", level: 5 },
+          { name: "Strength", level: 4 },
+          { name: "Endurance", level: 4 },
+          { name: "Form Precision", level: 4 },
         ],
       },
       {
-        title: "🤖 AI 能力",
+        title: "🤖 AI Capabilities",
         items: [
-          { name: "AI 思考", level: 4 },
-          { name: "AI 资讯关注", level: 4 },
-          { name: "Agent / 工作流", level: 3 },
-          { name: "Python 基础", level: 3 },
-          { name: "Prompt 工程", level: 2 },
-          { name: "AI 经验", level: 1 },
-          { name: "数学基础", level: 1 },
+          { name: "AI Thinking", level: 4 },
+          { name: "AI News Tracking", level: 4 },
+          { name: "Agent / Workflows", level: 3 },
+          { name: "Python Basics", level: 3 },
+          { name: "Prompt Engineering", level: 2 },
+          { name: "AI Experience", level: 1 },
+          { name: "Math Foundations", level: 1 },
         ],
       },
     ],
   },
 
   // ─────────────────────────────────────────────
-  // 项目作品 —— highlight: true 会加强调边框
+  // Projects — highlight: true adds an emphasized border
   // ─────────────────────────────────────────────
   projects: [
     {
-      title: "健身 AI 私教 · 未完待续",
+      title: "Fitness AI Coach · Work in Progress",
       description:
-        "做一个健身 AI 私教/搭子 —— 一个体外的健身大脑,完全懂你的偏好,帮你做所有的决策。从肌肉到 AI,这是我自己的闭环。",
-      tech: ["AI", "Fitness", "Agent", "未完待续"],
+        "Building an AI fitness coach / gym buddy — an external fitness brain that actually gets you, knows your preferences, and makes all the decisions for you. From muscles to AI: this is my own closed loop.",
+      tech: ["AI", "Fitness", "Agent", "WIP"],
       link: "#",
-      tags: ["AI", "健身", "个人项目"],
+      tags: ["AI", "Fitness", "Personal Project"],
       highlight: true,
     },
   ],
 
   // ─────────────────────────────────────────────
-  // 健身视频 Reel —— 本地 mp4
+  // Fitness Reel — local mp4
   // ─────────────────────────────────────────────
   reel: {
-    title: "肌肉男在海边放肆地展示他的身材",
-    caption: "活在当下,把身体练成你最骄傲的作品。",
+    title: "A muscle bro showing off by the sea",
+    caption: "Be here now. Build your body into the thing you're proudest of.",
     videoSrc: "/fitness-reel.mp4",
   },
 
   // ─────────────────────────────────────────────
-  // 联系方式
+  // Contact
   // ─────────────────────────────────────────────
   contact: {
-    invite: "如果你也对 {AI}、{健身}、{活在当下} 感兴趣,或者只是想聊聊 ——",
+    invite: "If you're also into {AI}, {fitness}, or {being here now} — or just wanna chat —",
     email: "wangzichen202301@gmail.com",
     socials: [
       { label: "Email", href: "mailto:wangzichen202301@gmail.com", icon: "mail" },

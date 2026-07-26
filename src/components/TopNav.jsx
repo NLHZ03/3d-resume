@@ -8,11 +8,11 @@ const NAV_ITEMS = [
   { id: "contact", label: "Contact" },
 ];
 
-// 受控导航:点击切换 activeSection,当前项高亮
+// Controlled nav: click to switch activeSection, current item highlighted
 export default function TopNav({ activeSection, setActiveSection }) {
   return (
     <header className="pointer-events-auto absolute top-0 left-0 right-0 z-20 flex items-center justify-between gap-2 px-4 py-3 md:px-10 md:py-4">
-      {/* Logo(点击回 about) */}
+      {/* Logo (click to return to about) */}
       <button
         onClick={() => setActiveSection("about")}
         className="shrink-0 text-[11px] font-semibold tracking-[0.15em] text-neutral-100 transition-opacity hover:opacity-70 md:text-sm md:tracking-[0.2em]"
@@ -20,7 +20,7 @@ export default function TopNav({ activeSection, setActiveSection }) {
         {profile.name?.toUpperCase()} · 3D
       </button>
 
-      {/* 导航胶囊:移动端紧凑 */}
+      {/* Nav pill: compact on mobile */}
       <nav className="flex items-center gap-0 rounded-full border border-white/10 bg-white/5 p-0.5 backdrop-blur-md md:gap-1 md:p-1">
         {NAV_ITEMS.map((item) => (
           <button

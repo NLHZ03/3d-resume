@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { profile } from "../content";
 import Highlight from "./Highlight";
 
-// 检测当前环境是否支持 WebGL
+// Detect whether the current environment supports WebGL
 function detectWebGL() {
-  if (typeof window === "undefined") return true; // SSR 兜底
+  if (typeof window === "undefined") return true; // SSR fallback
   try {
     const canvas = document.createElement("canvas");
     const gl =
@@ -15,7 +15,7 @@ function detectWebGL() {
   }
 }
 
-// 降级 UI:纯文字版简历(从 content.js 读取)
+// Fallback UI: plain-text resume (read from content.js)
 function FallbackResume() {
   const { name, role, about, skills, projects, contact } = profile;
   return (
@@ -27,7 +27,7 @@ function FallbackResume() {
       <p className="text-violet-300">{role}</p>
 
       <p className="mt-6 text-sm text-neutral-400">
-        你的浏览器不支持 WebGL,以下为纯文字版简历。
+        Your browser doesn't support WebGL. Here's the plain-text version of the resume.
       </p>
 
       {about?.paragraphs && (
@@ -94,7 +94,7 @@ function FallbackResume() {
   );
 }
 
-// 包裹组件:WebGL 不支持时降级到文字版
+// Wrapper component: falls back to text version when WebGL is unavailable
 export default function WebGLGuard({ children }) {
   const [supported, setSupported] = useState(null);
 
@@ -102,7 +102,7 @@ export default function WebGLGuard({ children }) {
     setSupported(detectWebGL());
   }, []);
 
-  // 初始状态:渲染 null,避免闪烁
+  // Initial state: render null to avoid flicker
   if (supported === null) return null;
   if (!supported) {
     return (

@@ -1,8 +1,8 @@
-// 把字符串里的 {关键词} 渲染成彩色高亮 span
-// 用法:<Highlight text="我是 {Eric},喜欢 {Web 3D}" />
+// Renders {keywords} in a string as colored highlight spans
+// Usage: <Highlight text="I'm {Eric}, I like {Web 3D}" />
 export default function Highlight({ text, className = "" }) {
   if (!text) return null;
-  // 按 {xxx} 分割,奇数索引为高亮内容
+  // Split by {xxx}; odd indices are the highlighted content
   const parts = text.split(/(\{[^}]+\})/g);
   return (
     <span className={className}>

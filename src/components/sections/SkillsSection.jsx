@@ -1,6 +1,6 @@
 import { profile } from "../../content";
 
-// level 1-5 渲染成小圆点
+// Render level 1-5 as small dots
 function LevelDots({ level }) {
   return (
     <span className="inline-flex gap-0.5">
@@ -16,7 +16,7 @@ function LevelDots({ level }) {
   );
 }
 
-// PC:右侧玻璃面板 / 移动端:底部横向铺满
+// Desktop: right-side glass panel / Mobile: full-width bottom sheet
 export default function SkillsSection() {
   const { skills } = profile;
   if (!skills?.groups) return null;
@@ -29,7 +29,7 @@ export default function SkillsSection() {
         Skills
       </h2>
 
-      {/* 移动端:横向滚动;PC:纵向堆叠 */}
+      {/* Mobile: horizontal scroll / Desktop: vertical stack */}
       <div className="flex gap-5 overflow-x-auto md:block md:space-y-5 md:overflow-visible">
         {skills.groups.map((group) => (
           <div key={group.title} className="min-w-[140px] md:min-w-0">

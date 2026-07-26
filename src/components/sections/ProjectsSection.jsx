@@ -1,6 +1,6 @@
 import { profile } from "../../content";
 
-// PC:左侧大块面板 / 移动端:底部铺满(占下半屏可滚动)
+// Desktop: left-side large panel / Mobile: full-width bottom sheet (scrollable)
 export default function ProjectsSection() {
   const { projects } = profile;
   if (!projects?.length) return null;
