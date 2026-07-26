@@ -1,18 +1,20 @@
 import Highlight from "../Highlight";
 import { profile } from "../../content";
 
-// 左下角玻璃卡片 —— 关于我(支持多段落 + 高亮 + 引言 + 标签云)
+// PC:左下角玻璃卡片 / 移动端:底部铺满
 export default function AboutSection() {
   const { name, role, about } = profile;
   if (!about) return null;
 
   return (
-    <div className="pointer-events-auto absolute bottom-6 left-6 z-10 max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md md:bottom-10 md:left-10">
+    <div className="pointer-events-auto absolute z-10 w-auto rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md md:p-6
+                    left-4 right-4 bottom-4
+                    md:left-10 md:right-auto md:bottom-10 md:w-full md:max-w-md">
       {/* 姓名 + 职位 */}
       <p className="text-xs tracking-[0.2em] text-neutral-400 uppercase">
         Hello, I'm
       </p>
-      <h1 className="mt-1 text-3xl font-bold text-neutral-50">{name}</h1>
+      <h1 className="mt-1 text-2xl font-bold text-neutral-50 md:text-3xl">{name}</h1>
       <p className="mt-0.5 text-sm font-medium text-violet-300">{role}</p>
 
       {/* 多段落正文,支持 {高亮} */}

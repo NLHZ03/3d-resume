@@ -1,17 +1,19 @@
 import { profile } from "../../content";
 
-// 左侧大块面板 —— 项目作品(纵向卡片列表,highlight 加强调边框)
+// PC:左侧大块面板 / 移动端:底部铺满(占下半屏可滚动)
 export default function ProjectsSection() {
   const { projects } = profile;
   if (!projects?.length) return null;
 
   return (
-    <div className="pointer-events-auto absolute left-6 top-1/2 z-10 w-full max-w-md -translate-y-1/2 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md md:left-10">
+    <div className="pointer-events-auto absolute z-10 w-auto rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md md:p-6
+                    left-4 right-4 bottom-4 max-h-[55vh]
+                    md:left-10 md:right-auto md:top-1/2 md:w-full md:max-w-md md:max-h-[60vh] md:-translate-y-1/2">
       <h2 className="mb-4 text-xs font-semibold tracking-[0.2em] text-neutral-400 uppercase">
         Projects
       </h2>
 
-      <div className="max-h-[60vh] space-y-3 overflow-y-auto pr-1">
+      <div className="max-h-[calc(55vh-3rem)] space-y-3 overflow-y-auto pr-1 md:max-h-[calc(60vh-3rem)]">
         {projects.map((project, i) => (
           <a
             key={i}

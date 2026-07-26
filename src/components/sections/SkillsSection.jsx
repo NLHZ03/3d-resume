@@ -16,20 +16,23 @@ function LevelDots({ level }) {
   );
 }
 
-// 右侧玻璃面板 —— 技能(分组 + 熟练度圆点)
+// PC:右侧玻璃面板 / 移动端:底部横向铺满
 export default function SkillsSection() {
   const { skills } = profile;
   if (!skills?.groups) return null;
 
   return (
-    <div className="pointer-events-auto absolute right-6 top-1/2 z-10 w-72 -translate-y-1/2 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md md:right-10">
+    <div className="pointer-events-auto absolute z-10 w-auto rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md md:p-6
+                    left-4 right-4 bottom-4
+                    md:left-auto md:right-10 md:bottom-auto md:top-1/2 md:w-72 md:-translate-y-1/2">
       <h2 className="mb-4 text-xs font-semibold tracking-[0.2em] text-neutral-400 uppercase">
         Skills
       </h2>
 
-      <div className="space-y-5">
+      {/* 移动端:横向滚动;PC:纵向堆叠 */}
+      <div className="flex gap-5 overflow-x-auto md:block md:space-y-5 md:overflow-visible">
         {skills.groups.map((group) => (
-          <div key={group.title}>
+          <div key={group.title} className="min-w-[140px] md:min-w-0">
             <p className="mb-2 text-sm font-medium text-neutral-200">
               {group.title}
             </p>
@@ -37,7 +40,7 @@ export default function SkillsSection() {
               {group.items.map((item) => (
                 <div
                   key={item.name}
-                  className="flex items-center justify-between"
+                  className="flex items-center justify-between gap-3"
                 >
                   <span className="text-sm text-neutral-300">{item.name}</span>
                   <LevelDots level={item.level} />

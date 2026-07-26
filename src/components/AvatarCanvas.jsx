@@ -1,6 +1,6 @@
 import { Suspense, useRef, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Html, Float, Environment } from "@react-three/drei";
+import { OrbitControls, useGLTF, Html, Float, Environment, useProgress } from "@react-three/drei";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import * as THREE from "three";
 
@@ -10,11 +10,25 @@ function gltfSetup(loader) {
 }
 
 // 各章节的相机预设位置 + 目标焦点
+// PC 版:近距离特写;移动版:距离调远,给 UI 抽屉让出空间
+const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 const SECTION_CAMERAS = {
-  about: { position: [0, 1.5, 4], target: [0, 1, 0] },
-  skills: { position: [3, 1.5, 3], target: [0, 1, 0] },
-  projects: { position: [-3, 1.8, 3], target: [0, 1.1, 0] },
-  contact: { position: [0, 1.2, 2.5], target: [0, 1, 0] },
+  about: {
+    position: isMobile ? [0, 1.5, 6] : [0, 1.5, 4],
+    target: [0, 1, 0],
+  },
+  skills: {
+    position: isMobile ? [3.5, 1.5, 5] : [3, 1.5, 3],
+    target: [0, 1, 0],
+  },
+  projects: {
+    position: isMobile ? [-3.5, 1.8, 5] : [-3, 1.8, 3],
+    target: [0, 1.1, 0],
+  },
+  contact: {
+    position: isMobile ? [0, 1.2, 4] : [0, 1.2, 2.5],
+    target: [0, 1, 0],
+  },
 };
 
 // 加载并渲染 avatar 模型,带缓慢自转
@@ -88,13 +102,23 @@ function CameraRig({ activeSection, controlsRef, autoRotateRef }) {
   return null;
 }
 
-// 加载提示
+// 加载提示:真实百分比进度条
 function LoadingFallback() {
+  const { progress } = useProgress();
+  const pct = Math.round(progress);
   return (
     <Html center>
-      <div className="flex flex-col items-center gap-3 select-none">
+      <div className="flex w-48 flex-col items-center gap-3 select-none">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-600 border-t-neutral-300" />
-        <span className="text-sm tracking-wide text-neutral-300">Loading...</span>
+        <span className="text-xs tracking-wide text-neutral-300">
+          Loading 3D Avatar · {pct}%
+        </span>
+        <div className="h-1 w-full overflow-hidden rounded-full bg-white/10">
+          <div
+            className="h-full rounded-full bg-violet-400 transition-all duration-300"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
       </div>
     </Html>
   );
