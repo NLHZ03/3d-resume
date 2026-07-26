@@ -1,61 +1,65 @@
 // ============================================================
-//  内容中枢 —— 你的所有信息都在这里
+//  内容中枢 —— 王梓臣 ERIC 的个人主页
 //  改这一个文件,网站立刻反映。组件代码不用动。
 // ============================================================
 //
 //  ✦ About 段落里用 {关键词} 语法,会被渲染成彩色高亮
 //  ✦ level 用 1-5 的数字,会渲染成小圆点(熟练度可视化)
 //  ✦ 任何字段都可以删除/留空,组件会自动跳过
-//  ✦ 想加更多项目/技能/标签?直接往数组里加对象即可
 
 export const profile = {
-  name: "Eric Wang",
-  role: "Creative Frontend Engineer",
-  location: "Shanghai, China",
+  name: "Eric · 王梓臣",
+  role: "从肌肉思考到 AI-native 思考的商科生",
+  location: "山东东营 → Singapore",
 
   // ─────────────────────────────────────────────
-  // 关于我 —— 用 {关键词} 做高亮,写得像散文也没关系
+  // 关于我 —— 用 {关键词} 做高亮
   // ─────────────────────────────────────────────
   about: {
     paragraphs: [
-      "我是 {Eric},一名沉迷于 {Web 3D} 与 {交互叙事} 的前端工程师。",
-      "我相信代码不只是解决问题的工具,更是 {表达的媒介} —— 把抽象的想法变成可触摸的体验,是我最享受的事。",
-      "这里是我的数字分身,你可以转动它、和它互动。这个网站本身,就是我能给你的最好的名片。",
+      "我是 {Eric},一个想从{肌肉思考}走向 {AI-native 思考}的商科生。",
+      "我信奉 {活在当下} —— 把每一刻都过得饱满,无论是撸铁、写代码,还是思考未来。",
+      "这个网站是我的数字分身,你可以转动它、和它互动。它本身,就是我能给你的最好的名片。",
     ],
-    quote: "用技术把想象力,变成可触摸的体验。",
-    tags: ["WebGL", "React", "Design", "Storytelling", "Animation"],
+    quote: "我不需要酒精和毒品,我喜欢未加修饰的痛苦。",
+    tags: ["创造价值", "成为自己", "AI", "活在当下", "健身"],
   },
 
   // ─────────────────────────────────────────────
-  // 技能 —— 分组 + 熟练度(1-5 圆点)
+  // 技能 —— 三大领域:个人成长 / 健身 / AI
   // ─────────────────────────────────────────────
   skills: {
     groups: [
       {
-        title: "Frontend",
+        title: "🌱 个人成长",
         items: [
-          { name: "React", level: 5 },
-          { name: "TypeScript", level: 4 },
-          { name: "Next.js", level: 4 },
-          { name: "Tailwind CSS", level: 5 },
+          { name: "情绪管理", level: 5 },
+          { name: "习惯养成", level: 4 },
+          { name: "反思复盘", level: 4 },
+          { name: "快乐阈值", level: 4 },
+          { name: "时间管理", level: 3 },
         ],
       },
       {
-        title: "3D / Graphics",
+        title: "💪 健身领域",
         items: [
-          { name: "Three.js", level: 4 },
-          { name: "React Three Fiber", level: 4 },
-          { name: "GLSL Shaders", level: 3 },
-          { name: "Blender", level: 3 },
+          { name: "出勤率", level: 5 },
+          { name: "饮食习惯", level: 5 },
+          { name: "力量", level: 4 },
+          { name: "耐力", level: 4 },
+          { name: "动作标准化", level: 4 },
         ],
       },
       {
-        title: "Tools & Others",
+        title: "🤖 AI 能力",
         items: [
-          { name: "Vite", level: 4 },
-          { name: "Git", level: 5 },
-          { name: "Node.js", level: 4 },
-          { name: "Figma", level: 4 },
+          { name: "AI 思考", level: 4 },
+          { name: "AI 资讯关注", level: 4 },
+          { name: "Agent / 工作流", level: 3 },
+          { name: "Python 基础", level: 3 },
+          { name: "Prompt 工程", level: 2 },
+          { name: "AI 经验", level: 1 },
+          { name: "数学基础", level: 1 },
         ],
       },
     ],
@@ -66,44 +70,33 @@ export const profile = {
   // ─────────────────────────────────────────────
   projects: [
     {
-      title: "3D Digital Resume",
+      title: "健身 AI 私教 · 未完待续",
       description:
-        "你正在看的这个网站。一个以数字分身为载体的沉浸式个人主页,集成了 React Three Fiber、Meshopt 压缩、章节叙事相机联动。",
-      tech: ["React 19", "R3F", "Three.js", "Tailwind"],
+        "做一个健身 AI 私教/搭子 —— 一个体外的健身大脑,完全懂你的偏好,帮你做所有的决策。从肌肉到 AI,这是我自己的闭环。",
+      tech: ["AI", "Fitness", "Agent", "未完待续"],
       link: "#",
-      tags: ["3D", "WebGL", "Portfolio"],
+      tags: ["AI", "健身", "个人项目"],
       highlight: true,
-    },
-    {
-      title: "Interactive Data Visualization",
-      description:
-        "基于 D3 + Three.js 的三维数据看板,支持千万级数据点的实时渲染与交互探索。",
-      tech: ["Three.js", "D3.js", "WebGL", "TypeScript"],
-      link: "#",
-      tags: ["Data Viz", "Performance"],
-      highlight: false,
-    },
-    {
-      title: "Generative Art Playground",
-      description:
-        "用 GLSL shader 生成的艺术作品集,每一帧都是数学与美学的对话。",
-      tech: ["GLSL", "WebGL", "React"],
-      link: "#",
-      tags: ["Creative Coding", "Shader"],
-      highlight: false,
     },
   ],
 
   // ─────────────────────────────────────────────
-  // 联系方式 —— invite 是引导语,体现你的语气
+  // 健身视频 Reel —— 本地 mp4
+  // ─────────────────────────────────────────────
+  reel: {
+    title: "肌肉男在海边放肆地展示他的身材",
+    caption: "活在当下,把身体练成你最骄傲的作品。",
+    videoSrc: "/fitness-reel.mp4",
+  },
+
+  // ─────────────────────────────────────────────
+  // 联系方式
   // ─────────────────────────────────────────────
   contact: {
-    invite: "如果你也对 {Web 3D}、{创造性表达} 感兴趣,或者只是想聊聊 ——",
-    email: "hello@ericwang.dev",
+    invite: "如果你也对 {AI}、{健身}、{活在当下} 感兴趣,或者只是想聊聊 ——",
+    email: "wangzichen202301@gmail.com",
     socials: [
-      { label: "GitHub", href: "https://github.com", icon: "github" },
-      { label: "Twitter", href: "https://twitter.com", icon: "twitter" },
-      { label: "Email", href: "mailto:hello@ericwang.dev", icon: "mail" },
+      { label: "Email", href: "mailto:wangzichen202301@gmail.com", icon: "mail" },
     ],
   },
 };

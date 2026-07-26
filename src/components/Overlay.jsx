@@ -1,12 +1,14 @@
 import TopNav from "./TopNav";
 import AboutSection from "./sections/AboutSection";
 import SkillsSection from "./sections/SkillsSection";
+import ReelSection from "./sections/ReelSection";
 import ProjectsSection from "./sections/ProjectsSection";
 import ContactSection from "./sections/ContactSection";
 
 const SECTION_MAP = {
   about: AboutSection,
   skills: SkillsSection,
+  reel: ReelSection,
   projects: ProjectsSection,
   contact: ContactSection,
 };

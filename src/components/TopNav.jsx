@@ -3,6 +3,7 @@ import { profile } from "../content";
 const NAV_ITEMS = [
   { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
+  { id: "reel", label: "Reel" },
   { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];
@@ -20,12 +21,12 @@ export default function TopNav({ activeSection, setActiveSection }) {
       </button>
 
       {/* 导航胶囊:移动端紧凑 */}
-      <nav className="flex items-center gap-0.5 rounded-full border border-white/10 bg-white/5 p-0.5 backdrop-blur-md md:gap-1 md:p-1">
+      <nav className="flex items-center gap-0 rounded-full border border-white/10 bg-white/5 p-0.5 backdrop-blur-md md:gap-1 md:p-1">
         {NAV_ITEMS.map((item) => (
           <button
             key={item.id}
             onClick={() => setActiveSection(item.id)}
-            className={`rounded-full px-2.5 py-1 text-[10px] font-medium tracking-wide transition-colors md:px-4 md:py-1.5 md:text-xs ${
+            className={`rounded-full px-2 py-1 text-[10px] font-medium tracking-wide transition-colors md:px-4 md:py-1.5 md:text-xs ${
               activeSection === item.id
                 ? "bg-white/15 text-white"
                 : "text-neutral-300 hover:bg-white/10 hover:text-white"

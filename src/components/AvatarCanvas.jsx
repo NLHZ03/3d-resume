@@ -21,6 +21,11 @@ const SECTION_CAMERAS = {
     position: isMobile ? [3.5, 1.5, 5] : [3, 1.5, 3],
     target: [0, 1, 0],
   },
+  reel: {
+    // 视频章节:相机移到一侧,把画面让给视频
+    position: isMobile ? [4, 1.5, 5] : [5, 2, 4],
+    target: [0, 1, 0],
+  },
   projects: {
     position: isMobile ? [-3.5, 1.8, 5] : [-3, 1.8, 3],
     target: [0, 1.1, 0],
