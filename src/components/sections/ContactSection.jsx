@@ -3,19 +3,19 @@ import Highlight from "../Highlight";
 import { profile } from "../../content";
 
 // Bottom-center capsule — Contact
-// WeChat ID shown with click-to-copy (no web protocol exists for WeChat)
+// Both email and WeChat are click-to-copy (email also remains a mailto link)
 export default function ContactSection() {
   const { contact } = profile;
-  const [copied, setCopied] = useState(false);
+  const [copiedField, setCopiedField] = useState(null); // "email" | "wechat" | null
   if (!contact) return null;
 
-  const copyWeChat = async () => {
+  const copy = async (field, value) => {
     try {
-      await navigator.clipboard.writeText(contact.wechat);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(value);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
     } catch {
-      // fallback: do nothing, user can manually select
+      // fallback: do nothing
     }
   };
 
@@ -33,13 +33,26 @@ export default function ContactSection() {
         </p>
       )}
 
+      {/* Email: click to copy + still a mailto link */}
       {contact.email && (
-        <a
-          href={`mailto:${contact.email}`}
-          className="mt-3 inline-block break-all text-lg font-medium text-neutral-50 transition-colors hover:text-violet-300 md:text-xl"
-        >
-          {contact.email}
-        </a>
+        <div className="mt-3 flex items-center justify-center gap-2">
+          <button
+            onClick={() => copy("email", contact.email)}
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-base font-medium text-neutral-50 transition-colors hover:bg-white/10 md:text-lg"
+          >
+            <span className="break-all">{contact.email}</span>
+          </button>
+          <a
+            href={`mailto:${contact.email}`}
+            className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-neutral-300 transition-colors hover:bg-white/10 hover:text-white"
+            title="Open in mail app"
+          >
+            ✉
+          </a>
+        </div>
+      )}
+      {copiedField === "email" && (
+        <p className="mt-1 text-xs text-violet-300">Email copied ✓</p>
       )}
 
       {/* WeChat: click to copy ID */}
@@ -47,27 +60,11 @@ export default function ContactSection() {
         <div className="mt-3 flex items-center justify-center gap-2 text-sm">
           <span className="text-neutral-400">WeChat:</span>
           <button
-            onClick={copyWeChat}
+            onClick={() => copy("wechat", contact.wechat)}
             className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-medium text-neutral-200 transition-colors hover:bg-white/10 hover:text-white"
           >
-            {copied ? "Copied ✓" : contact.wechat}
+            {copiedField === "wechat" ? "Copied ✓" : contact.wechat}
           </button>
-        </div>
-      )}
-
-      {contact.socials?.length > 0 && (
-        <div className="mt-3 flex items-center justify-center gap-2">
-          {contact.socials.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-300 transition-colors hover:bg-white/10 hover:text-white"
-            >
-              {social.label}
-            </a>
-          ))}
         </div>
       )}
     </div>
