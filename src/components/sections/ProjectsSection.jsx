@@ -1,19 +1,19 @@
 import { profile } from "../../content";
 
-// Desktop: left-side large panel / Mobile: full-width bottom sheet (scrollable)
+// Bottom-center capsule — Projects (scrollable card list)
 export default function ProjectsSection() {
   const { projects } = profile;
   if (!projects?.length) return null;
 
   return (
-    <div className="pointer-events-auto absolute z-10 w-auto rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md md:p-6
+    <div className="pointer-events-auto absolute z-10 w-auto rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-md md:p-6
                     left-4 right-4 bottom-4 max-h-[55vh]
-                    md:left-10 md:right-auto md:top-1/2 md:w-full md:max-w-md md:max-h-[60vh] md:-translate-y-1/2">
-      <h2 className="mb-4 text-xs font-semibold tracking-[0.2em] text-neutral-400 uppercase">
+                    md:bottom-8 md:left-1/2 md:right-auto md:w-full md:max-w-2xl md:max-h-[60vh] md:-translate-x-1/2">
+      <h2 className="mb-3 text-sm font-semibold tracking-[0.3em] text-neutral-400 uppercase">
         Projects
       </h2>
 
-      <div className="max-h-[calc(55vh-3rem)] space-y-3 overflow-y-auto pr-1 md:max-h-[calc(60vh-3rem)]">
+      <div className="max-h-[calc(55vh-3.5rem)] space-y-3 overflow-y-auto pr-1 md:max-h-[calc(60vh-3.5rem)]">
         {projects.map((project, i) => (
           <a
             key={i}

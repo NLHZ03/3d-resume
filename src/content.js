@@ -94,9 +94,10 @@ export const profile = {
   // ─────────────────────────────────────────────
   contact: {
     invite: "If you're also into {AI}, {fitness}, or {being here now} — or just wanna chat —",
-    email: "wangzichen202301@gmail.com",
+    email: "zichen.wang.2026@mitb.smu.edu.sg",
+    wechat: "wangzichen2003",
     socials: [
-      { label: "Email", href: "mailto:wangzichen202301@gmail.com", icon: "mail" },
+      { label: "Email", href: "mailto:zichen.wang.2026@mitb.smu.edu.sg", icon: "mail" },
     ],
   },
 };

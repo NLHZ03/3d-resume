@@ -8,7 +8,12 @@ function App() {
 
   return (
     <WebGLGuard>
-      <div className="relative h-screen w-screen bg-neutral-950 overflow-hidden">
+      <div className="relative h-screen w-screen overflow-hidden bg-neutral-950">
+        {/* Background atmosphere layers (behind the transparent Canvas) */}
+        <div className="atmo-glow pointer-events-none absolute inset-0" />
+        <div className="atmo-grid pointer-events-none absolute inset-0" />
+        <div className="atmo-noise pointer-events-none absolute inset-0" />
+
         <AvatarCanvas activeSection={activeSection} />
         <Overlay activeSection={activeSection} setActiveSection={setActiveSection} />
       </div>

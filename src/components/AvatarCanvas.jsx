@@ -10,28 +10,28 @@ function gltfSetup(loader) {
 }
 
 // Camera presets per section: model stays centered (shared target),
-// camera orbits around the center — model never shifts off-center
+// camera orbits closer to make the model dominate the frame
 const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 const MODEL_CENTER = [0, 1, 0];
 const SECTION_CAMERAS = {
   about: {
-    position: isMobile ? [0, 1.5, 6] : [0, 1.5, 4],
+    position: isMobile ? [0, 1.5, 5] : [0, 1.5, 3.5],
     target: MODEL_CENTER,
   },
   skills: {
-    position: isMobile ? [3.5, 1.5, 5] : [3, 1.5, 3.2],
+    position: isMobile ? [3, 1.5, 4.5] : [2.8, 1.5, 2.8],
     target: MODEL_CENTER,
   },
   reel: {
-    position: isMobile ? [4, 1.5, 5] : [4.5, 1.8, 3.5],
+    position: isMobile ? [3.5, 1.8, 4.5] : [4, 1.8, 3],
     target: MODEL_CENTER,
   },
   projects: {
-    position: isMobile ? [-3.5, 1.8, 5] : [-3, 1.8, 3.2],
+    position: isMobile ? [-3, 1.8, 4.5] : [-2.8, 1.8, 2.8],
     target: MODEL_CENTER,
   },
   contact: {
-    position: isMobile ? [0, 1.2, 4] : [0, 1.2, 2.8],
+    position: isMobile ? [0, 1.2, 3.5] : [0, 1.2, 2.4],
     target: MODEL_CENTER,
   },
 };
@@ -58,7 +58,7 @@ function AvatarModel() {
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} scale={1.5}>
       <Float speed={1.5} rotationIntensity={0.08} floatIntensity={0.2}>
         <primitive object={scene} />
       </Float>
@@ -142,12 +142,10 @@ export default function AvatarCanvas({ activeSection }) {
   const controlsRef = useRef();
 
   return (
-    <Canvas camera={{ position: [0, 1.5, 4], fov: 35 }} dpr={[1, 2]} shadows>
-      <color attach="background" args={["#0a0a0a"]} />
-
-      {/* Environment map: locally generated (no CDN dependency) for PBR reflections */}
+    <Canvas camera={{ position: [0, 1.5, 3.5], fov: 30 }} dpr={[1, 2]} shadows gl={{ alpha: true }}>
+      {/* Environment map: locally generated (no CDN dependency) for PBR reflections.
+          Canvas is transparent (alpha) so the CSS atmosphere layer behind shows through. */}
       <Environment resolution={256} frames={1}>
-        <color attach="background" args={["#0a0a0a"]} />
         <Lightformer intensity={2} position={[0, 4, 0]} scale={[6, 6, 1]} />
         <Lightformer intensity={1.5} position={[4, 2, 4]} scale={[3, 3, 1]} />
         <Lightformer intensity={1} position={[-4, 2, -4]} scale={[3, 3, 1]} />
